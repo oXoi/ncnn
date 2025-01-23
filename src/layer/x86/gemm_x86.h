@@ -19,7 +19,7 @@
 
 namespace ncnn {
 
-class Gemm_x86 : virtual public Gemm
+class Gemm_x86 : public Gemm
 {
 public:
     Gemm_x86();
@@ -27,6 +27,12 @@ public:
     virtual int create_pipeline(const Option& opt);
 
     virtual int forward(const std::vector<Mat>& bottom_blobs, std::vector<Mat>& top_blobs, const Option& opt) const;
+
+protected:
+#if NCNN_INT8
+    int create_pipeline_int8(const Option& opt);
+    int forward_int8(const std::vector<Mat>& bottom_blobs, std::vector<Mat>& top_blobs, const Option& opt) const;
+#endif
 
 public:
     int nT;

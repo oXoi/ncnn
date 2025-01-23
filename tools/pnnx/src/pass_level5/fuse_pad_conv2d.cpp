@@ -42,10 +42,10 @@ pnnx.Output             output      1 0 out
 
     const char* name_str() const
     {
-        return "conv2d";
+        return "padconv2d";
     }
 
-    bool match_captured_params_attrs(const std::map<std::string, Parameter>& captured_params) const
+    bool match(const std::map<std::string, Parameter>& captured_params) const
     {
         // constant-0 + zeros
         float pad_value = 0.f;
@@ -118,7 +118,7 @@ public:
         return R"PNNXIR(7767517
 4 3
 pnnx.Input              input       0 1 input
-F.pad                   op_pad      1 1 input a mode=%mode pad=%pad
+F.pad                   op_pad      1 1 input a mode=%mode pad=%pad value=None
 nn.Conv2d               op_0        1 1 a out in_channels=%in_channels out_channels=%out_channels kernel_size=%kernel_size stride=%stride padding_mode=* padding=(0,0) dilation=%dilation groups=%groups bias=%bias @weight @bias
 pnnx.Output             output      1 0 out
 )PNNXIR";
@@ -131,10 +131,10 @@ pnnx.Output             output      1 0 out
 
     const char* name_str() const
     {
-        return "conv2d";
+        return "padconv2d";
     }
 
-    bool match_captured_params_attrs(const std::map<std::string, Parameter>& captured_params) const
+    bool match(const std::map<std::string, Parameter>& captured_params) const
     {
         // reflect/replicate + nopad
         if (captured_params.at("mode").s != "reflect" && captured_params.at("mode").s != "replicate")
@@ -215,10 +215,10 @@ pnnx.Output             output      1 0 out
 
     const char* name_str() const
     {
-        return "conv2d";
+        return "padconv2d";
     }
 
-    bool match_captured_params_attrs(const std::map<std::string, Parameter>& captured_params) const
+    bool match(const std::map<std::string, Parameter>& captured_params) const
     {
         // constant-0 + zeros
         float pad_value = 0.f;
@@ -293,10 +293,10 @@ pnnx.Output             output      1 0 out
 
     const char* name_str() const
     {
-        return "conv2d";
+        return "padconv2d";
     }
 
-    bool match_captured_params_attrs(const std::map<std::string, Parameter>& captured_params) const
+    bool match(const std::map<std::string, Parameter>& captured_params) const
     {
         // constant-0 + zeros
         const std::vector<int>& pad = captured_params.at("pad").ai;
@@ -362,10 +362,10 @@ pnnx.Output             output      1 0 out
 
     const char* name_str() const
     {
-        return "conv2d";
+        return "padconv2d";
     }
 
-    bool match_captured_params_attrs(const std::map<std::string, Parameter>& captured_params) const
+    bool match(const std::map<std::string, Parameter>& captured_params) const
     {
         // replicate + nopad
         const std::vector<int>& pad = captured_params.at("pad").ai;
@@ -431,10 +431,10 @@ pnnx.Output             output      1 0 out
 
     const char* name_str() const
     {
-        return "conv2d";
+        return "padconv2d";
     }
 
-    bool match_captured_params_attrs(const std::map<std::string, Parameter>& captured_params) const
+    bool match(const std::map<std::string, Parameter>& captured_params) const
     {
         // reflect + nopad
         const std::vector<int>& pad = captured_params.at("pad").ai;
